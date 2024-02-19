@@ -82,7 +82,7 @@
         </div>
 
         <div class="col-12">
-          <button type="submit" class="btn btn-outline-primary btn-lg w-100">
+          <button type="submit" class="btn btn-outline-primary btn-lg w-100" onclick="createJSON()">
             LOGIN
           </button>
         </div>
@@ -93,6 +93,46 @@
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
       crossorigin="anonymous"
-    ></script>
+    >
+
+function createJSON() {
+    // Get form input values
+    var patientId = document.getElementById("validationCustomUsername").value;
+    var email = document.getElementById("validationCustom02").value;
+    var password = document.getElementById("validationCustom01").value;
+    var rememberMe = document.getElementById("gridCheck").checked;
+
+    // Construct JSON object
+    var formData = {
+      "patientId": patientId,
+      "email": email,
+      "password": password,
+      "rememberMe": rememberMe
+    };
+
+    // Convert JSON object to string
+    var jsonString = JSON.stringify(formData);
+
+    // Display JSON string (for demonstration purposes)
+    console.log(jsonString);
+
+    axios.post("http://localhost:8083/healthcare/patientregister", jsonString)
+        .then(function (response) {
+        // Handle success
+        console.log(response.data);
+        alert("Patient details saved successfully!");
+      })
+      .catch(function (error) {
+        // Handle error
+        console.error(error);
+        alert("An error occurred while saving the medicine.");
+      });
+
+
+
+  }
+  
+  
+  </script>
   </body>
 </html>

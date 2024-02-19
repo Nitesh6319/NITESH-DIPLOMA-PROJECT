@@ -69,7 +69,15 @@
     <div class="container mt-5">
       <h1 class="text-center">Medicine Details</h1>
 
-      <div id="medicineList" class="text-center"></div>
+      <div id="medicineList" class="text-center">
+        <div class="container">
+          <div class="row">
+            <div id="cardContainer" class="col-md-12">
+              <!-- Cards will be dynamically added here -->
+            </div>
+          </div>
+        </div>
+      </div>
 
       <!-- Clear Button -->
       <button class="btn btn-danger mt-3 mr-2" onclick="clearLastMedicine()">
@@ -84,80 +92,54 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <!-- Custom JavaScript -->
     <script>
       // Retrieve medicine entries from local storage
-      var storedMedicines = JSON.parse(localStorage.getItem("medicines")) || [];
+      //var storedMedicines = JSON.parse(localStorage.getItem("medicines")) || [];
+      var storedMedicines;
+      axios.get('http://localhost:8083/healthcare/addmedicine')
+  .then(response => {
+    
+    storedMedicines = response.data;
+      console.log(storedMedicines);
+      renderCards(storedMedicines);
+  })
+  .catch(error => {
+    console.error('Error fetching diet plans:', error);
+    // Handle error
+  });
+      //var storedMedicines=JSON.parse(JSONString);
+       
 
-      // Display medicine entries on the page
-      displayMedicines();
-
-      function displayMedicines() {
-        var medicineListDiv = document.getElementById("medicineList");
-
-        if (storedMedicines.length > 0) {
-          var html = '<div class="list-group">';
-          storedMedicines.forEach(function (medicine, index) {
-            html += '<div class="list-group-item">';
-            html +=
-              '<p class="mb-1"><strong>Medicine Name:</strong> ' +
-              medicine.medicineName +
-              "</p>";
-            html +=
-              '<p class="mb-1"><strong>Start Date:</strong> ' +
-              medicine.startDate +
-              "</p>";
-            html +=
-              '<p class="mb-1"><strong>End Date:</strong> ' +
-              medicine.endDate +
-              "</p>";
-            html +=
-              '<p class="mb-1"><strong>Frequency:</strong> ' +
-              medicine.frequency +
-              "</p>";
-            html +=
-              '<p class="mb-1"><strong>Start Time:</strong> ' +
-              medicine.startTime +
-              "</p>";
-            html +=
-              '<p class="mb-1"><strong>Notes:</strong> ' +
-              medicine.notes +
-              "</p>";
-            html +=
-              '<button class="btn btn-danger mt-2" onclick="clearThisMedicine(' +
-              index +
-              ')">Clear This Medicine</button>';
-            html += "</div>";
-          });
-          html += "</div>";
-          medicineListDiv.innerHTML = html;
-        } else {
-          medicineListDiv.innerHTML = "<p>No medicine entries found.</p>";
-        }
-      }
-
-      function clearLastMedicine() {
-        // Remove the last added medicine
-        storedMedicines.pop();
-
-        // Update local storage
-        localStorage.setItem("medicines", JSON.stringify(storedMedicines));
-
-        // Refresh the page
-        location.reload();
-      }
-
-      function clearThisMedicine(index) {
-        // Remove the specified medicine
-        storedMedicines.splice(index, 1);
-
-        // Update local storage
-        localStorage.setItem("medicines", JSON.stringify(storedMedicines));
-
-        // Refresh the page
-        location.reload();
-      }
+      function createCard(medicine) {
+    var cardHtml = `
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">${medicine.medicineName}</h5>
+            <p class="card-text">Start Date: ${medicine.startDate}</p>
+            <p class="card-text">End Date: ${medicine.endDate}</p>
+            <p class="card-text">Frequency: ${medicine.frequency}</p>
+            <p class="card-text">Start Time: ${medicine.startTime}</p>
+            <p class="card-text">Notes: ${medicine.notes}</p>
+          </div>
+        </div>
+      </div>
+    `;
+    return cardHtml;
+  }
+  function renderCards(medicines) {
+    var cardContainer = document.getElementById('cardContainer');
+    medicines.forEach(function(medicine) {
+      var cardHtml = createCard(medicine);
+      cardContainer.innerHTML += cardHtml;
+    });
+  }
 
       function clearAllMedicines() {
         // Clear all stored medicines

@@ -173,6 +173,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
       function addDietPlan() {
         const dietName = document.getElementById("dietName").value;
@@ -225,9 +226,24 @@
       }
 
       function saveDietData(dietData) {
-        let dietPlans = JSON.parse(localStorage.getItem("dietPlans")) || [];
-        dietPlans.push(dietData);
-        localStorage.setItem("dietPlans", JSON.stringify(dietPlans));
+        // let dietPlans = JSON.parse(localStorage.getItem("dietPlans")) || [];
+        // dietPlans.push(dietData);
+        // localStorage.setItem("dietPlans", JSON.stringify(dietPlans));
+
+        console.log(dietData);
+
+        axios.post("http://localhost:8083/healthcare/adddietplan", dietData)
+        .then(function (response) {
+        // Handle success
+        console.log(response.data);
+        alert("Diet saved successfully!");
+      })
+      .catch(function (error) {
+        // Handle error
+        console.error(error);
+        alert("An error occurred while saving the Diet.");
+      });
+
       }
     </script>
   </body>

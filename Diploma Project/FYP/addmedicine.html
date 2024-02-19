@@ -118,6 +118,8 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
 
     <!-- Custom JavaScript -->
     <script>
@@ -129,6 +131,7 @@
         var frequency = document.getElementById("frequency").value;
         var startTime = document.getElementById("startTime").value;
         var notes = document.getElementById("notes").value;
+        
 
         // Retrieve existing medicine entries from local storage
         var existingMedicines =
@@ -140,14 +143,27 @@
           startDate: startDate,
           endDate: endDate,
           frequency: frequency,
-          startTime: startTime,
+          startTime: startTime + ":00",
           notes: notes,
         };
 
         existingMedicines.push(newMedicine);
+        console.log(newMedicine);
+
+        axios.post("http://localhost:8083/healthcare/addmedicine", newMedicine)
+        .then(function (response) {
+        // Handle success
+        console.log(response.data);
+        alert("Medicine saved successfully!");
+      })
+      .catch(function (error) {
+        // Handle error
+        console.error(error);
+        alert("An error occurred while saving the medicine.");
+      });
 
         // Save the updated array to local storage
-        localStorage.setItem("medicines", JSON.stringify(existingMedicines));
+        //localStorage.setItem("medicines", JSON.stringify(existingMedicines));
 
         // Clear the form fields
         document.getElementById("medicineForm").reset();

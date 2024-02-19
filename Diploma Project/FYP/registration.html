@@ -1,185 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-    />
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-      }
-
-      .form-container {
-        border-radius: 8px;
-        padding: 30px;
-        margin: auto;
-      }
-
-      input {
-        width: 100%;
-        padding: 10px;
-        box-sizing: border-box;
-        margin-bottom: 15px;
-        border-radius: 3px solid black;
-        opacity: 0.9;
-      }
-
-      input[type="radio"] {
-        margin-bottom: 6px;
-        margin-top: 2px; /* Adjusted margin for better alignment */
-        opacity: 1;
-      }
-
-      button {
-        background-color: #5194e3;
-        color: #fff;
-        padding: 15px;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-        width: 100%;
-      }
-
-      button:hover {
-        background-color: #113ff6;
-      }
-    </style>
-    <title>Registration as Patient</title>
-  </head>
-  <body
-    style="background: url('images/hg.svg') no-repeat; background-size: cover"
-  >
-    <i class="fa fa-arrow-left" aria-hidden="true"></i>
-
-    <h3>
-      Registration as Patient
-      <style>
-        h3 {
-          position: absolute;
-          top: 2rem;
-        }
-      </style>
-    </h3>
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-md-8">
-          <div class="form-container">
-            <form id="registrationForm">
-              <div class="form-group">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="firstName"
-                  name="firstName"
-                  aria-label="First Name"
-                  placeholder="First Name"
-                  required
-                />
-              </div>
-
-              <div class="form-group">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="lastName"
-                  name="lastName"
-                  aria-label="Last Name"
-                  placeholder="Last Name"
-                  required
-                />
-              </div>
-
-              <div class="form-group">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="Patientid"
-                  name="Patientid"
-                  aria-label="ID"
-                  placeholder=" Patient ID"
-                  required
-                />
-              </div>
-
-              <div class="form-group">
-                <input
-                  type="tel"
-                  class="form-control"
-                  id="phone"
-                  name="phone"
-                  aria-label="Phone No."
-                  placeholder="Phone No."
-                  required
-                />
-              </div>
-
-              <div class="form-group">
-                <input
-                  type="email"
-                  class="form-control"
-                  id="email"
-                  name="email"
-                  aria-label="Email ID"
-                  placeholder="Email ID"
-                  required
-                />
-              </div>
-
-              <div class="form-group">
-                <input
-                  type="password"
-                  class="form-control"
-                  id="password"
-                  name="password"
-                  aria-label="Password"
-                  placeholder="Password"
-                  required
-                />
-              </div>
-
-              <div class="form-group">
-                <input
-                  type="password"
-                  class="form-control"
-                  id="confirmPassword"
-                  name="confirmPassword"
-                  aria-label="Confirm Password"
-                  placeholder="Confirm Password"
-                  required
-                />
-              </div>
-              <button type="submit" class="btn btn-primary">Register</button>
-            </form>
-          </div>
-        </div>
-      </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+</head>
+<style>
+  body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+  }
+  .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  h1 {
+      text-align: center;
+      color: #333;
+  }
+  form {
+      margin-top: 20px;
+  }
+  label {
+      font-weight: bold;
+  }
+  input[type="text"],
+  input[type="tel"],
+  input[type="email"],
+  input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0 15px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+  }
+  button[type="submit"] {
+      width: 100%;
+      padding: 10px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+  }
+  button[type="submit"]:hover {
+      background-color: #0056b3;
+  }
+</style>
+<body>
+  <div class="container">
+    <h1>Registration Form</h1>
+    <form id="registrationForm" onsubmit="createUser(); return false;">
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" name="firstName" required><br><br>
+        
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" name="lastName" required><br><br>
+        
+        <label for="Patientid">Patient ID:</label>
+        <input type="text" id="Patientid" name="Patientid" required><br><br>
+        
+        <label for="phone">Phone:</label>
+        <input type="tel" id="phone" name="phone" required><br><br>
+        
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br><br>
+        
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br><br>
+        
+        <label for="confirmPassword">Confirm Password:</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" required><br><br>
+        
+        <button type="submit">Register</button>
+    </form>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
-      document
-        .getElementById("registrationForm")
-        .addEventListener("submit", function (event) {
-          // Your validation logic here
-          var phoneInput = document.getElementById("phone");
-          if (phoneInput.value.length !== 10) {
-            alert("Phone number must be 10 digits.");
-            event.preventDefault(); // Prevent form submission
-            return;
-          }
-        });
+        function createUser() {
+            const firstName = document.getElementById("firstName").value;
+            const lastName = document.getElementById("lastName").value;
+            const patientId = document.getElementById("Patientid").value;
+            const phone = document.getElementById("phone").value;
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            const confirmPassword = document.getElementById("confirmPassword").value;
+
+            const registrationData = {
+                firstName: firstName,
+                lastName: lastName,
+                Patientid: patientId,
+                phone: phone,
+                email: email,
+                password: password,
+                confirmPassword: confirmPassword
+            };
+            console.log(registrationData);
+
+            axios.post('http://localhost:8083/healthcare/register', registrationData)
+                .then(response => {
+                    console.log('Registration successful:', response.data);
+                    // Handle success
+                })
+                .catch(error => {
+                    console.error('Error registering:', error);
+                    // Handle error
+                });
+        }
     </script>
-  </body>
+</body>
 </html>
