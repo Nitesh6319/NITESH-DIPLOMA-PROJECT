@@ -1,64 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Schedule Form</title>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Patient Dashboard</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <style>
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        background-color: #ffffff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        border-radius: 10px;
+        margin-top: 20px;
+      }
+
+      .activity-card {
+        margin-bottom: 15px;
+        border: 1px solid #dee2e6;
+        border-radius: 10px;
+        padding: 10px;
+      }
+
+      .clear-all-button {
+        margin-top: 15px;
+      }
+      .navbar {
+        background-color: #e3f2fd;
+      }
+      #cardContainer {
+        margin-top: 20px; /* Adjust this value to set the desired space between cards */
+      }
+      .card {
+        margin-bottom: 20px; /* Adjust this value to set the desired space between cards */
+      }
+    </style>
+  </head>
+  <body
+    style="background: url('images/hg.svg') no-repeat; background-size: cover"
+  >
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-item nav-link active" href="caregiver.html">Home</a>
+          <a class="nav-item nav-link" href="diet.html">Add a Diet</a>
+          <a class="nav-item nav-link" href="addmedicine.html">Medicine</a>
+          <a class="nav-item nav-link" href="contact.html">Contact us</a>
+        </div>
+      </div>
+    </nav>
+
     <div class="container">
-        <h1>Schedule Form</h1>
-        <form id="scheduleForm">
-            <div class="form-group">
-                <label for="activity">Activity:</label>
-                <input type="text" class="form-control" id="activity" required>
-            </div>
-            <div class="form-group">
-                <label for="date">Date:</label>
-                <input type="date" class="form-control" id="date" required>
-            </div>
-            <div class="form-group">
-                <label for="startTime">Start Time:</label>
-                <input type="time" class="form-control" id="startTime" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
+      <h1 class="text-center mb-4">Patient Dashboard</h1>
+
+      <div id="patientActivities">
+        <div id="cardContainer" class="row">
+          <!-- Patient activities will be displayed here -->
+        </div>
+      </div>
+
+      <button
+        class="btn btn-danger btn-block clear-all-button"
+        onclick="clearAllActivities()"
+      >
+        Clear All Activities
+      </button>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <script>
-      
+      var storedActivities;
 
-        document.getElementById("scheduleForm").addEventListener("submit", function(event) {
-            event.preventDefault();
-            saveSchedule();
+      axios.get('http://localhost:8083/healthcare/schedule')
+              .then(response => {
+                storedActivities = response.data;
+                console.log(storedActivities);
+                renderActivities(storedActivities);
+              })
+              .catch(error => {
+                console.error('Error fetching activities:', error);
+                // Handle error
+              });
+
+      function createActivityCard(activity) {
+        var cardHtml = `
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">${activity.activity}</h5>
+          <p class="card-text">Date: ${activity.date}</p>
+          <p class="card-text">Time: ${activity.startTime}</p>
+        </div>
+      </div>
+    </div>
+  `;
+        return cardHtml;
+      }
+
+      function renderActivities(activities) {
+        var cardContainer = document.getElementById('cardContainer');
+        activities.forEach(function(activity) {
+          var cardHtml = createActivityCard(activity);
+          cardContainer.innerHTML += cardHtml;
         });
+      }
 
-        function saveSchedule() {
-            var activity = document.getElementById("activity").value;
-            var date = document.getElementById("date").value;
-            var startTime = document.getElementById("startTime").value;
-
-            var schedule = {
-                activity: activity,
-                date: date,
-                startTime: startTime + ":00"
-            };
-
-            console.log(schedule);
-
-            // Make an Axios POST request to save the schedule
-            axios.post('http://localhost:8083/healthcare/schedule', schedule)
-                .then(function(response) {
-                    console.log('Schedule saved successfully:', response.data);
-                    // Handle success
-                })
-                .catch(function(error) {
-                    console.error('Error saving schedule:', error);
-                    // Handle error
-                });
-        }
     </script>
-</body>
+  </body>
 </html>

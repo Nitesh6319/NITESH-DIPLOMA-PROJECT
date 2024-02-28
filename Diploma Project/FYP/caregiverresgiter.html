@@ -19,8 +19,8 @@
         <input type="text" id="lastName" required>
       </div>
       <div>
-        <label for="Patientid">Patient ID:</label>
-        <input type="text" id="Patientid" required>
+        <label for="patientId">Patient ID:</label>
+        <input type="text" id="patientId" required>
       </div>
       <div>
         <label for="caregiverId">Caregiver ID:</label>
@@ -50,7 +50,7 @@
     function saveUser() {
       var firstName = document.getElementById("firstName").value;
       var lastName = document.getElementById("lastName").value;
-      var Patientid = document.getElementById("Patientid").value;
+      var patientId = document.getElementById("patientId").value;
       var caregiverId = document.getElementById("caregiverId").value;
       var phone = document.getElementById("phone").value;
       var email = document.getElementById("email").value;
@@ -60,7 +60,7 @@
       var userData = {
         firstName: firstName,
         lastName: lastName,
-        Patientid: Patientid,
+        patientId: patientId,
         caregiverId: caregiverId,
         phone: phone,
         email: email,
