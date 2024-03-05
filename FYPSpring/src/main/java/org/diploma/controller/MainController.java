@@ -34,10 +34,7 @@ public class MainController {
 
     @GetMapping("/addmedicine")
     @ResponseStatus(HttpStatus.OK)
-    public List<AddMedicine> getAllMedicines()
-    {
-        return medicineService.getAllMedicines();
-    }
+    public List<AddMedicine> getAllMedicines() { return medicineService.getAllMedicines(); }
 
     @PostMapping("/deletemedicine")
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -69,10 +66,7 @@ public class MainController {
 
     @GetMapping("/addcaregiverregister")
     @ResponseStatus(HttpStatus.OK)
-    public List<CaregiverRegistration> getAllCaregiverregistered()
-    {
-        return caregiverRegistrationService.getAllCaregiverRegistrations();
-    }
+    public List<CaregiverRegistration> getAllCaregiverregistered() {return caregiverRegistrationService.getAllCaregiverRegistrations();}
 
     @PostMapping("/adddietplan")
     @ResponseStatus(HttpStatus.CREATED)
@@ -83,10 +77,7 @@ public class MainController {
 
     @GetMapping("/adddietplan")
     @ResponseStatus(HttpStatus.OK)
-    public List<DietPlan> getAllDietPlans()
-    {
-        return dietPlanService.getAllDietPlans();
-    }
+    public List<DietPlan> getAllDietPlans() {return dietPlanService.getAllDietPlans();}
 
 
     @PostMapping("/patientregister")
@@ -98,10 +89,7 @@ public class MainController {
 
     @GetMapping("/patientregister")
     @ResponseStatus(HttpStatus.OK)
-    public List<PatientRegistration> getAllRegisteredPatients()
-    {
-        return patientRegistrationService.getAllPatientRegistrations();
-    }
+    public List<PatientRegistration> getAllRegisteredPatients() {return patientRegistrationService.getAllPatientRegistrations();}
 
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
@@ -135,6 +123,13 @@ public class MainController {
     @ResponseStatus(HttpStatus.CREATED)
     public void createschedule(@RequestBody Schedule schedule) {
         scheduleService.createSchedule(schedule);
+    }
+
+
+    @PostMapping("/deleteschedule")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteSchedulebyID(@RequestBody Schedule schedule) {
+        scheduleService.deleteByID(schedule);
     }
 
 

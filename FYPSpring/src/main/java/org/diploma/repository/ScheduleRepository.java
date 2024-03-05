@@ -10,4 +10,6 @@ public interface ScheduleRepository extends JpaRepository<Schedule,Integer> {
 
     @Query("SELECT MAX(m.id) FROM Schedule m")
     Optional<Integer> findFirstByOrderByIdDesc();
+
+    void deleteById(int id);
 }

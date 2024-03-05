@@ -2,6 +2,7 @@ package org.diploma.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.diploma.model.AddMedicine;
 import org.diploma.model.Schedule;
 import org.diploma.repository.ScheduleRepository;
 import org.springframework.stereotype.Service;
@@ -58,6 +59,12 @@ public class ScheduleService {
         List<Schedule> schedules = scheduleRepository.findAll();
         log.info("Schedule Count: {}", schedules.size());
         return schedules;
+    }
+
+    public void deleteByID(Schedule schedule){
+
+        scheduleRepository.deleteById(schedule.getId());
+        log.info("Deleted Medicine by id: {}",schedule.getId());
     }
 }
 
