@@ -62,8 +62,8 @@
         <label for="lastName">Last Name:</label>
         <input type="text" id="lastName" name="lastName" required><br><br>
         
-        <label for="Patientid">Patient ID:</label>
-        <input type="text" id="Patientid" name="Patientid" required><br><br>
+        <label for="patientId">Patient ID:</label>
+        <input type="text" id="patientId" name="patientId" required><br><br>
         
         <label for="phone">Phone:</label>
         <input type="tel" id="phone" name="phone" required><br><br>
@@ -86,7 +86,7 @@
         function createUser() {
             const firstName = document.getElementById("firstName").value;
             const lastName = document.getElementById("lastName").value;
-            const patientId = document.getElementById("Patientid").value;
+            const PatientId = document.getElementById("patientId").value;
             const phone = document.getElementById("phone").value;
             const email = document.getElementById("email").value;
             const password = document.getElementById("password").value;
@@ -95,7 +95,7 @@
             const registrationData = {
                 firstName: firstName,
                 lastName: lastName,
-                Patientid: patientId,
+                Patientid: PatientId,
                 phone: phone,
                 email: email,
                 password: password,
@@ -114,5 +114,6 @@
                 });
         }
     </script>
+
 </body>
 </html>
