@@ -1,7 +1,9 @@
 package org.diploma.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -9,6 +11,8 @@ import javax.persistence.*;
 @Table(name="login_patient")
 @Builder
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class PatientRegistration {
 
     @Id
@@ -17,59 +21,6 @@ public class PatientRegistration {
     private String email;
     private String password;
 
-    // Constructors
-    public PatientRegistration() {
-    }
 
-    public PatientRegistration(int id, String patientId, String email, String password) {
-        this.id = id;
-        this.patientId = patientId;
-        this.email = email;
-        this.password = password;
-    }
-
-    // Getters and setters
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getPatientId() {
-        return patientId;
-    }
-
-    public void setPatientId(String patientId) {
-        this.patientId = patientId;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    // toString method
-    @Override
-    public String toString() {
-        return "PatientRegistration{" +
-                "id=" + id +
-                ", patientId='" + patientId + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                '}';
-    }
 }
 
