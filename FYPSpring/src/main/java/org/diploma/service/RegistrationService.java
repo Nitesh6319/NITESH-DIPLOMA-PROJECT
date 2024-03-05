@@ -52,16 +52,16 @@ public class RegistrationService {
                 .id(registration.getId())
                 .firstName(registration.getFirstName())
                 .lastName(registration.getLastName())
-                .patientId(registration.getPatientid())
+                .patientId(registration.getPatientId())
                 .phone(registration.getPhone())
                 .email(registration.getEmail())
                 .password(registration.getPassword())
                 .confirmPassword(registration.getConfirmPassword())
                 .build();
 
-        log.info(registration.getPatientid());
+        log.info(registration.getPatientId());
 
-        //registrationRepository.save(reg);
+        registrationRepository.save(reg);
 
         log.info("Registration {} {} is saved with ID: {}", reg.getFirstName(), reg.getLastName(), reg.getId());
     }
