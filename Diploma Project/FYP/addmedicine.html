@@ -1,173 +1,205 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <title>Addmedicine</title>
 
-    <title>Add Medicine</title>
-    <!-- Bootstrap CSS CDN -->
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-    />
-    <style>
-      .navbar {
-        background-color: #e3f2fd;
-      }
-      .container {
-        border-radius: 8px;
-      }
-    </style>
-  </head>
-  <body
-    style="background: url('images/hg.svg') no-repeat; background-size: cover"
-  >
-    <nav class="navbar navbar-expand-lg navbar-light">
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarNavAltMarkup"
-        aria-controls="navbarNavAltMarkup"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-          <a class="nav-item nav-link active" href="main screen.html"
-            >Home <span class="sr-only">(current)</span></a
-          >
-          <a class="nav-item nav-link" href="cognitivegames.html">Games</a>
-          <a class="nav-item nav-link" href="addmedicine.html">Medicine</a>
-          <a class="nav-item nav-link" href="#">Contact us</a>
-        </div>
-      </div>
-    </nav>
-    <div class="container mt-5">
-      <h1>Add Medicine+</h1>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-      <form id="medicineForm">
-        <!-- Medicine Name -->
-        <div class="form-group">
-          <label for="medicineName">Medicine Name:</label>
-          <input
-            type="text"
-            class="form-control"
-            id="medicineName"
-            placeholder="Enter medicine name"
-            required
-          />
-        </div>
+  <link
+          rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+  />
+  <style>
+    .navbar {
+      background-color: #e3f2fd;
+    }
+    .container {
+      border-radius: 8px;
+    }
+  </style>
 
-        <!-- Start Date -->
-        <div class="form-group">
-          <label for="startDate">Start Date:</label>
-          <input type="date" class="form-control" id="startDate" required />
-        </div>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body style="background: url('images/hg.svg') no-repeat; background-size: cover">
 
-        <!-- End Date -->
-        <div class="form-group">
-          <label for="endDate">End Date:</label>
-          <input type="date" class="form-control" id="endDate" required />
-        </div>
+<nav class="navbar navbar-expand-lg navbar-light">
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
-        <!-- Frequency -->
-        <div class="form-group">
-          <label for="frequency">Frequency:</label>
-          <input
-            type="text"
-            class="form-control"
-            id="frequency"
-            placeholder="Enter frequency"
-            required
-          />
-        </div>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="main screen.html">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="cognitivegames.html">Games</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="medicineschedule.html">Medicine</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="contact.html">Contact</a>
+      </li>
+      <!-- Add more navigation items as needed -->
+    </ul>
 
-        <!-- Start Time -->
-        <div class="form-group">
-          <label for="startTime">Start Time:</label>
-          <input type="time" class="form-control" id="startTime" required />
-        </div>
+    <!-- Logout button on the right side -->
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" onclick="logout()">Logout</a>
+      </li>
+    </ul>
+  </div>
+</nav>
 
-        <!-- Notes -->
-        <div class="form-group">
-          <label for="notes">Notes:</label>
-          <textarea
-            class="form-control"
-            id="notes"
-            rows="3"
-            placeholder="Enter notes"
-          ></textarea>
-        </div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 
-        <!-- Submit Button -->
-        <button
-          type="submit"
-          class="btn btn-primary btn-md btn-block"
-          style="margin-bottom: 50px"
-          onclick="saveMedicine()"
-        >
-          SAVE
-        </button>
-      </form>
+<script>
+  function logout() {
+    // Clear user session or perform other logout actions
+    // For this example, let's assume clearing a fictional user token
+    localStorage.removeItem('userToken');
+    window.alert("logout");
+
+    // Redirect to the login page or any other desired destination
+    window.location.href = "patient.html";
+  }
+</script>
+
+<!-- Add your page content here -->
+<div class="container mt-5">
+  <!-- Your form and other content go here -->
+</div>
+
+<div class="container mt-5">
+  <h1>Add Medicine+</h1>
+
+  <form id="medicineForm">
+    <!-- Medicine Name -->
+    <div class="form-group">
+      <label for="medicineName">Medicine Name:</label>
+      <input
+              type="text"
+              class="form-control"
+              id="medicineName"
+              placeholder="Enter medicine name"
+              required
+      />
     </div>
 
-    <!-- Bootstrap JS and Popper.js CDN -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- Start Date -->
+    <div class="form-group">
+      <label for="startDate">Start Date:</label>
+      <input type="date" class="form-control" id="startDate" required />
+    </div>
+
+    <!-- End Date -->
+    <div class="form-group">
+      <label for="endDate">End Date:</label>
+      <input type="date" class="form-control" id="endDate" required />
+    </div>
+
+    <!-- Frequency -->
+    <div class="form-group">
+      <label for="frequency">Frequency:</label>
+      <input
+              type="text"
+              class="form-control"
+              id="frequency"
+              placeholder="Enter frequency"
+              required
+      />
+    </div>
+
+    <!-- Start Time -->
+    <div class="form-group">
+      <label for="startTime">Start Time:</label>
+      <input type="time" class="form-control" id="startTime" required />
+    </div>
+
+    <!-- Notes -->
+    <div class="form-group">
+      <label for="notes">Notes:</label>
+      <textarea
+              class="form-control"
+              id="notes"
+              rows="3"
+              placeholder="Enter notes"
+      ></textarea>
+    </div>
+
+    <!-- Submit Button -->
+    <button
+            type="submit"
+            class="btn btn-primary btn-md btn-block"
+            style="margin-bottom: 50px"
+            onclick="saveMedicine()"
+    >
+      SAVE
+    </button>
+  </form>
+</div>
+
+<!-- Bootstrap JS and Popper.js CDN -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 
-    <!-- Custom JavaScript -->
-    <script>
-      function saveMedicine() {
-        // Get values from the form
-        var medicineName = document.getElementById("medicineName").value;
-        var startDate = document.getElementById("startDate").value;
-        var endDate = document.getElementById("endDate").value;
-        var frequency = document.getElementById("frequency").value;
-        var startTime = document.getElementById("startTime").value;
-        var notes = document.getElementById("notes").value;
+<!-- Custom JavaScript -->
+<script>
+  function saveMedicine() {
+    // Get values from the form
+    var medicineName = document.getElementById("medicineName").value;
+    var startDate = document.getElementById("startDate").value;
+    var endDate = document.getElementById("endDate").value;
+    var frequency = document.getElementById("frequency").value;
+    var startTime = document.getElementById("startTime").value;
+    var notes = document.getElementById("notes").value;
 
 
-        // Retrieve existing medicine entries from local storage
-        var existingMedicines =
-          JSON.parse(localStorage.getItem("medicines")) || [];
+    // Retrieve existing medicine entries from local storage
+    var existingMedicines =
+      JSON.parse(localStorage.getItem("medicines")) || [];
 
-        // Add the new medicine entry
-        var newMedicine = {
-          medicineName: medicineName,
-          startDate: startDate,
-          endDate: endDate,
-          frequency: frequency,
-          startTime: startTime + ":00",
-          notes: notes,
-        };
+    // Add the new medicine entry
+    var newMedicine = {
+      medicineName: medicineName,
+      startDate: startDate,
+      endDate: endDate,
+      frequency: frequency,
+      startTime: startTime + ":00",
+      notes: notes,
+    };
 
-        existingMedicines.push(newMedicine);
-        console.log(newMedicine);
+    existingMedicines.push(newMedicine);
+    console.log(newMedicine);
 
-        axios.post("http://localhost:8083/healthcare/addmedicine", newMedicine)
-        .then(function (response) {
-        // Handle success
-        console.log(response.data);
-        alert("Medicine saved successfully!");
-      })
-      .catch(function (error) {
-        // Handle error
-        console.error(error);
-        alert("An error occurred while saving the medicine.");
-      });
+    axios.post("http://localhost:8083/healthcare/addmedicine", newMedicine)
+    .then(function (response) {
+    // Handle success
+    console.log(response.data);
+    alert("Medicine saved successfully!");
+  })
+  .catch(function (error) {
+    // Handle error
+    console.error(error);
+    alert("An error occurred while saving the medicine.");
+  });
 
-        // Save the updated array to local storage
-        //localStorage.setItem("medicines", JSON.stringify(existingMedicines));
+    // Save the updated array to local storage
+    //localStorage.setItem("medicines", JSON.stringify(existingMedicines));
 
-        // Clear the form fields
-        document.getElementById("medicineForm").reset();
-      }
-    </script>
-  </body>
+    // Clear the form fields
+    document.getElementById("medicineForm").reset();
+  }
+</script>
+
+</body>
 </html>
