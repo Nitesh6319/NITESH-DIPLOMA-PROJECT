@@ -7,81 +7,81 @@
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
-  <div class="container">
-    <h1>Register Caregiver</h1>
-    <form id="caregiverForm">
-      <div>
-        <label for="firstName">First Name:</label>
-        <input type="text" id="firstName" required>
-      </div>
-      <div>
-        <label for="lastName">Last Name:</label>
-        <input type="text" id="lastName" required>
-      </div>
-      <div>
-        <label for="patientId">Patient ID:</label>
-        <input type="text" id="patientId" required>
-      </div>
-      <div>
-        <label for="caregiverId">Caregiver ID:</label>
-        <input type="text" id="caregiverId" required>
-      </div>
-      <div>
-        <label for="phone">Phone:</label>
-        <input type="text" id="phone" required>
-      </div>
-      <div>
-        <label for="email">Email:</label>
-        <input type="email" id="email" required>
-      </div>
-      <div>
-        <label for="password">Password:</label>
-        <input type="password" id="password" required>
-      </div>
-      <div>
-        <label for="confirmPassword">Confirm Password:</label>
-        <input type="password" id="confirmPassword" required>
-      </div>
-      <button type="button" onclick="saveUser()">Submit</button>
-    </form>
-  </div>
+<div class="container">
+  <h1>Register Caregiver</h1>
+  <form id="caregiverForm">
+    <div>
+      <label for="firstName">First Name:</label>
+      <input type="text" id="firstName" required>
+    </div>
+    <div>
+      <label for="lastName">Last Name:</label>
+      <input type="text" id="lastName" required>
+    </div>
+    <div>
+      <label for="patientId">Patient ID:</label>
+      <input type="text" id="patientId" required>
+    </div>
+    <div>
+      <label for="caregiverId">Caregiver ID:</label>
+      <input type="text" id="caregiverId" required>
+    </div>
+    <div>
+      <label for="phone">Phone:</label>
+      <input type="text" id="phone" required>
+    </div>
+    <div>
+      <label for="email">Email:</label>
+      <input type="email" id="email" required>
+    </div>
+    <div>
+      <label for="password">Password:</label>
+      <input type="password" id="password" required>
+    </div>
+    <div>
+      <label for="confirmPassword">Confirm Password:</label>
+      <input type="password" id="confirmPassword" required>
+    </div>
+    <button type="button" onclick="saveUser()">Submit</button>
+  </form>
+</div>
 
-  <script>
-    function saveUser() {
-      var firstName = document.getElementById("firstName").value;
-      var lastName = document.getElementById("lastName").value;
-      var patientId = document.getElementById("patientId").value;
-      var caregiverId = document.getElementById("caregiverId").value;
-      var phone = document.getElementById("phone").value;
-      var email = document.getElementById("email").value;
-      var password = document.getElementById("password").value;
-      var confirmPassword = document.getElementById("confirmPassword").value;
+<script>
+  function saveUser() {
+    var firstName = document.getElementById("firstName").value;
+    var lastName = document.getElementById("lastName").value;
+    var patientId = document.getElementById("patientId").value;
+    var caregiverId = document.getElementById("caregiverId").value;
+    var phone = document.getElementById("phone").value;
+    var email = document.getElementById("email").value;
+    var password = document.getElementById("password").value;
+    var confirmPassword = document.getElementById("confirmPassword").value;
 
-      var userData = {
-        firstName: firstName,
-        lastName: lastName,
-        patientId: patientId,
-        caregiverId: caregiverId,
-        phone: phone,
-        email: email,
-        password: password,
-        confirmPassword: confirmPassword
-      };
+    var userData = {
+      firstName: firstName,
+      lastName: lastName,
+      patientId: patientId,
+      caregiverId: caregiverId,
+      phone: phone,
+      email: email,
+      password: password,
+      confirmPassword: confirmPassword
+    };
 
-      console.log(userData); // Print the combined data to console (for testing)
+    console.log(userData); // Print the combined data to console (for testing)
 
-      axios.post("http://localhost:8083/healthcare/addcaregiverregister", userData)
-        .then(function(response) {
-          // Handle success
-          console.log(response.data);
-          alert("Caregiver saved successfully!");
-        })
-        .catch(function(error) {
-          // Handle error
-          console.error(error);
-          alert("An error occurred while saving the Caregiver.");
-        });
-    }
-  </script>
+    axios.post("http://localhost:8083/healthcare/addcaregiverregister", userData)
+      .then(function(response) {
+        // Handle success
+        console.log(response.data);
+        alert("Caregiver saved successfully!");
+      })
+      .catch(function(error) {
+        // Handle error
+        console.error(error);
+        alert("An error occurred while saving the Caregiver.");
+      });
+  }
+</script>
 </body>
 </html>

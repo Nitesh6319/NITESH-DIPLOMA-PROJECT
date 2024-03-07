@@ -77,38 +77,38 @@
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-    <script>
-        document.getElementById("scheduleForm").addEventListener("submit", function(event) {
-            event.preventDefault();
-            saveSchedule();
-        });
+<script>
+    document.getElementById("scheduleForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+        saveSchedule();
+    });
 
-        function saveSchedule() {
-            var activity = document.getElementById("activity").value;
-            var date = document.getElementById("date").value;
-            var startTime = document.getElementById("startTime").value;
+    function saveSchedule() {
+        var activity = document.getElementById("activity").value;
+        var date = document.getElementById("date").value;
+        var startTime = document.getElementById("startTime").value;
 
-            var schedule = {
-                activity: activity,
-                date: date,
-                startTime: startTime + ":00"
-            };
+        var schedule = {
+            activity: activity,
+            date: date,
+            startTime: startTime + ":00"
+        };
 
-            console.log(schedule);
+        console.log(schedule);
 
-            // Make an Axios POST request to save the schedule
-            axios.post('http://localhost:8083/healthcare/schedule', schedule)
-                .then(function(response) {
-                    console.log('Schedule saved successfully:', response.data);
-                    alert('Schedule saved successfully:');
-                    // Handle success
-                })
-                .catch(function(error) {
-                    console.error('Error saving schedule:', error);
-                    alert('Error saving schedule:');
-                    // Handle error
-                });
-        }
-    </script>
+        // Make an Axios POST request to save the schedule
+        axios.post('http://localhost:8083/healthcare/schedule', schedule)
+            .then(function(response) {
+                console.log('Schedule saved successfully:', response.data);
+                alert('Schedule saved successfully:');
+                // Handle success
+            })
+            .catch(function(error) {
+                console.error('Error saving schedule:', error);
+                alert('Error saving schedule:');
+                // Handle error
+            });
+    }
+</script>
 </body>
 </html>
