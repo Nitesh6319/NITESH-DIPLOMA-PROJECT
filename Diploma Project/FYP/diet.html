@@ -177,27 +177,14 @@
     <script>
       function addDietPlan() {
         const dietName = document.getElementById("dietName").value;
-        const dietDescription =
-          document.getElementById("dietDescription").value;
-        const nutrientRichFoods =
-          document.getElementById("nutrientRichFoods").value;
-        const omega3FattyAcids =
-          document.getElementById("omega3FattyAcids").value;
+        const dietDescription = document.getElementById("dietDescription").value;
+        const nutrientRichFoods = document.getElementById("nutrientRichFoods").value;
+        const omega3FattyAcids = document.getElementById("omega3FattyAcids").value;
         const healthyFats = document.getElementById("healthyFats").value;
-        const vitaminMineralRichFoods = document.getElementById(
-          "vitaminMineralRichFoods"
-        ).value;
+        const vitaminMineralRichFoods = document.getElementById("vitaminMineralRichFoods").value;
         const waterIntake = document.getElementById("waterIntake").value;
 
-        if (
-          dietName &&
-          dietDescription &&
-          nutrientRichFoods &&
-          omega3FattyAcids &&
-          healthyFats &&
-          vitaminMineralRichFoods &&
-          waterIntake
-        ) {
+        if (dietName && dietDescription && nutrientRichFoods && omega3FattyAcids && healthyFats && vitaminMineralRichFoods && waterIntake) {
           const dietData = {
             dietName,
             dietDescription,
@@ -209,17 +196,6 @@
           };
 
           saveDietData(dietData);
-
-          // Clear the form
-          document.getElementById("dietName").value = "";
-          document.getElementById("dietDescription").value = "";
-          document.getElementById("nutrientRichFoods").value = "";
-          document.getElementById("omega3FattyAcids").value = "";
-          document.getElementById("healthyFats").value = "";
-          document.getElementById("vitaminMineralRichFoods").value = "";
-          document.getElementById("waterIntake").value = "1";
-
-          alert("Diet Plan added successfully!");
         } else {
           alert("Please fill in all fields.");
         }
@@ -233,18 +209,16 @@
         console.log(dietData);
 
         axios.post("http://localhost:8083/healthcare/adddietplan", dietData)
-        .then(function (response) {
-        // Handle success
-        console.log(response.data);
-        alert("Diet saved successfully!");
-      })
-      .catch(function (error) {
-        // Handle error
-        console.error(error);
-        alert("An error occurred while saving the Diet.");
-      });
-
+                .then(function (response) {
+                  console.log(response.data);
+                  alert("Diet saved successfully!");
+                })
+                .catch(function (error) {
+                  console.error(error);
+                  alert("An error occurred while saving the Diet.");
+                });
       }
     </script>
+
   </body>
 </html>

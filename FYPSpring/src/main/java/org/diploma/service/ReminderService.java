@@ -2,6 +2,7 @@ package org.diploma.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.diploma.model.DietPlan;
 import org.diploma.model.Reminder;
 import org.diploma.repository.ReminderRepository;
 import org.springframework.stereotype.Service;
@@ -53,6 +54,11 @@ public class ReminderService {
         List<Reminder> reminders = reminderRepository.findAll();
         log.info("Reminder Count: {}", reminders.size());
         return reminders;
+    }
+
+    public void deleteByID(Reminder reminder){
+        reminderRepository.deleteById(reminder.getId());
+        log.info("Deleted Medicine by id: {}",reminder.getId());
     }
 }
 

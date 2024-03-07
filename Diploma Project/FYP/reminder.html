@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Save Reminder</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Axios for AJAX requests -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body style="background: linear-gradient(to right, #aee7f7, #3fd1fa);">
+<div class="container">
+  <div class="row justify-content-center mt-5">
+    <div class="col-md-6">
+      <div class="card shadow-lg">
+        <div class="card-body">
+          <h1 class="text-center mb-4">Create Reminder</h1>
+          <form id="reminderForm">
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Title:</label>
+              <input type="text" class="form-control" id="exampleInputEmail1" required>
+            </div>
+            <div class="mb-3">
+              <label for="description" class="form-label">Description:</label>
+              <textarea class="form-control" id="description" rows="4" required></textarea>
+            </div>
+            <div class="text-center">
+              <button type="button" class="btn btn-primary" onclick="saveUser()">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function saveUser() {
+    var description = document.getElementById("description").value;
+    var title = document.getElementById("exampleInputEmail1").value;
+
+    var reminder = {
+      title: title,
+      description: description
+    };
+
+    console.log(reminder); // Print the combined data to console (for testing)
+
+    axios.post("http://localhost:8083/healthcare/reminder", reminder)
+            .then(function(response) {
+              // Handle success
+              console.log(response.data);
+              alert("Reminder saved successfully!");
+            })
+            .catch(function(error) {
+              // Handle error
+              console.error(error);
+              alert("An error occurred while saving the reminder.");
+            });
+  }
+</script>
+</body>
+</html>

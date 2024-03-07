@@ -4,116 +4,125 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration Form</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <style>
-  body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-  }
-  .container {
-      max-width: 600px;
-      margin: 0 auto;
-      padding: 20px;
-      background-color: #fff;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  h1 {
-      text-align: center;
-      color: #333;
-  }
-  form {
-      margin-top: 20px;
-  }
-  label {
-      font-weight: bold;
-  }
-  input[type="text"],
-  input[type="tel"],
-  input[type="email"],
-  input[type="password"] {
-      width: 100%;
-      padding: 10px;
-      margin: 5px 0 15px 0;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      box-sizing: border-box;
-  }
-  button[type="submit"] {
-      width: 100%;
-      padding: 10px;
-      background-color: #007bff;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-  }
-  button[type="submit"]:hover {
-      background-color: #0056b3;
-  }
+    body {
+        font-family: Arial, sans-serif;
+        /* Remove background color */
+    }
+    .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        /* Remove background color and box shadow */
+        border-radius: 8px;
+    }
+    h1 {
+        text-align: center;
+        color: #333;
+    }
+    form {
+        margin-top: 20px;
+    }
+    label {
+        font-weight: bold;
+    }
+    input[type="text"],
+    input[type="tel"],
+    input[type="email"],
+    input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        margin: 5px 0 15px 0;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+    button[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    button[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+    .fa-arrow-left {
+        position: absolute;
+        top: 30px;
+        left: 30px;
+        color: #333;
+        font-size: 24px;
+        cursor: pointer;
+    }
 </style>
-<body>
-  <div class="container">
+<body style="background: linear-gradient(to right, #aee7f7, #3fd1fa);">
+<div class="container">
+    <i class="fas fa-arrow-left" aria-hidden="true"></i>
     <h1>Registration Form</h1>
     <form id="registrationForm" onsubmit="createUser(); return false;">
         <label for="firstName">First Name:</label>
         <input type="text" id="firstName" name="firstName" required><br><br>
-        
+
         <label for="lastName">Last Name:</label>
         <input type="text" id="lastName" name="lastName" required><br><br>
-        
+
         <label for="patientId">Patient ID:</label>
         <input type="text" id="patientId" name="patientId" required><br><br>
-        
+
         <label for="phone">Phone:</label>
         <input type="tel" id="phone" name="phone" required><br><br>
-        
+
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" required><br><br>
-        
+
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" required><br><br>
-        
+
         <label for="confirmPassword">Confirm Password:</label>
         <input type="password" id="confirmPassword" name="confirmPassword" required><br><br>
-        
+
         <button type="submit">Register</button>
     </form>
-    </div>
+</div>
 
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script>
-        function createUser() {
-            const firstName = document.getElementById("firstName").value;
-            const lastName = document.getElementById("lastName").value;
-            const PatientId = document.getElementById("patientId").value;
-            const phone = document.getElementById("phone").value;
-            const email = document.getElementById("email").value;
-            const password = document.getElementById("password").value;
-            const confirmPassword = document.getElementById("confirmPassword").value;
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    function createUser() {
+        const firstName = document.getElementById("firstName").value;
+        const lastName = document.getElementById("lastName").value;
+        const PatientId = document.getElementById("patientId").value;
+        const phone = document.getElementById("phone").value;
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+        const confirmPassword = document.getElementById("confirmPassword").value;
 
-            const registrationData = {
-                firstName: firstName,
-                lastName: lastName,
-                Patientid: PatientId,
-                phone: phone,
-                email: email,
-                password: password,
-                confirmPassword: confirmPassword
-            };
-            console.log(registrationData);
+        const registrationData = {
+            firstName: firstName,
+            lastName: lastName,
+            patientId: PatientId,
+            phone: phone,
+            email: email,
+            password: password,
+            confirmPassword: confirmPassword
+        };
+        console.log(registrationData);
 
-            axios.post('http://localhost:8083/healthcare/register', registrationData)
-                .then(response => {
-                    console.log('Registration successful:', response.data);
-                    // Handle success
-                })
-                .catch(error => {
-                    console.error('Error registering:', error);
-                    // Handle error
-                });
-        }
-    </script>
+        axios.post('http://localhost:8083/healthcare/register', registrationData)
+            .then(response => {
+                console.log('Registration successful:', response.data);
+                // Handle success
+            })
+            .catch(error => {
+                console.error('Error registering:', error);
+                // Handle error
+            });
+    }
+</script>
 
 </body>
 </html>

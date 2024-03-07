@@ -80,6 +80,11 @@ public class MainController {
     public List<DietPlan> getAllDietPlans() {return dietPlanService.getAllDietPlans();}
 
 
+    @PostMapping("/deletedietplan")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteDietbyID(@RequestBody DietPlan dietPlan) {dietPlanService.deleteByID(dietPlan);}
+
+
     @PostMapping("/patientregister")
     @ResponseStatus(HttpStatus.CREATED)
     public void createpatientregister(@RequestBody PatientRegistration patientRegistration) {
@@ -110,6 +115,10 @@ public class MainController {
     public void createreminder(@RequestBody Reminder reminder) {
         reminderService.createReminder(reminder);
     }
+
+    @PostMapping("/deletereminder")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteReminderbyID(@RequestBody Reminder reminder) {reminderService.deleteByID(reminder);}
 
 
     @GetMapping("/reminder")
