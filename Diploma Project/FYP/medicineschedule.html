@@ -5,10 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Display Medicine</title>
   <!-- Bootstrap CSS CDN -->
-  <link
-          rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-  />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
   <style>
     body {
       background-color: #f8f9fa;
@@ -37,28 +34,22 @@
       background-color: #c82333;
       border-color: #bd2130;
     }
+    .medicine-card {
+      margin-bottom: 20px;
+    }
   </style>
 </head>
-<body
-        style="background: url('images/hg.svg') no-repeat; background-size: cover"
->
+<body style="background: url('images/hg.svg') no-repeat; background-size: cover">
 <nav class="navbar navbar-expand-lg navbar-light">
-  <button
-          class="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarNavAltMarkup"
-          aria-controls="navbarNavAltMarkup"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-  >
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+          aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
       <a class="nav-item nav-link active" href="main screen.html">Home <span class="sr-only">(current)</span></a>
       <a class="nav-item nav-link" href="cognitivegames.html">Games</a>
-      <a class="nav-item nav-link" href="medicineschedule.html">medicine</a>
+      <a class="nav-item nav-link" href="medicineschedule.html">Medicine</a>
       <a class="nav-item nav-link" href="contact.html">Contact us</a>
     </div>
   </div>
@@ -67,16 +58,14 @@
 <div class="container mt-5">
   <h1 class="text-center">Medicine Details</h1>
 
-  <div id="medicineList" class="text-center">
-    <div class="container">
-      <div class="row">
-        <div id="cardContainer" align="center" class="col-md-12">
-          <!-- Cards will be dynamically added here -->
-        </div>
-      </div>
-    </div>
+  <div id="medicineList" class="row">
+    <!-- Cards will be dynamically added here -->
   </div>
 
+  <!-- Note for medication schedule removal after 24 hours -->
+  <div class="alert alert-warning mt-4" role="alert">
+    <strong>Note:</strong> The medication schedule will be automatically cleared after 24 hours.
+  </div>
 </div>
 
 <!-- Bootstrap JS and Popper.js CDN -->
@@ -84,26 +73,27 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-<!-- Custom JavaScript -->
 <script>
   var storedMedicines;
 
   axios.get('http://localhost:8083/healthcare/addmedicine')
           .then(response => {
-            storedMedicines = response.data;
+            storedMedicines = response.data.map(medicine => {
+              // Convert date format to yyyy-mm-dd
+              medicine.startDate = formatDate(medicine.startDate);
+              medicine.endDate = formatDate(medicine.endDate);
+              return medicine;
+            });
             console.log(storedMedicines);
             renderCards(storedMedicines);
 
-            // Automatically clear medicine details after 10 seconds
+            // Automatically clear medication schedule after 24 hours
             setTimeout(() => {
-              var cardContainer = document.getElementById('cardContainer');
+              var cardContainer = document.getElementById('medicineList');
               cardContainer.innerHTML = ''; // Clearing the HTML content
 
-              // Delete medicine details from the database
+              // Delete medication schedule from the database
               storedMedicines.forEach(medicine => {
                 axios.post('http://localhost:8083/healthcare/deletemedicine', { id: medicine.id })
                         .then(response => {
@@ -113,7 +103,7 @@
                           console.error('Error deleting medicine details:', error);
                         });
               });
-            }, 86400000); //for one day=86400000
+            }, 86400000); // 24 hours in milliseconds
           })
           .catch(error => {
             console.error('Error fetching medicine details:', error);
@@ -122,28 +112,37 @@
 
   function createCard(medicine) {
     var cardHtml = `
-        <div class="col-md-4">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">${medicine.medicineName}</h5>
-              <p class="card-text">Start Date: ${medicine.startDate}</p>
-              <p class="card-text">End Date: ${medicine.endDate}</p>
-              <p class="card-text">Frequency: ${medicine.frequency}</p>
-              <p class="card-text">Start Time: ${medicine.startTime}</p>
-              <p class="card-text">Notes: ${medicine.notes}</p>
-            </div>
+      <div class="col-md-4 medicine-card">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">${medicine.medicineName}</h5>
+            <p class="card-text">Start Date: ${medicine.startDate}</p>
+            <p class="card-text">End Date: ${medicine.endDate}</p>
+            <p class="card-text">Frequency: ${medicine.frequency}</p>
+            <p class="card-text">Start Time: ${medicine.startTime}</p>
+            <p class="card-text">Notes: ${medicine.notes}</p>
           </div>
         </div>
-      `;
+      </div>
+    `;
     return cardHtml;
   }
 
   function renderCards(medicines) {
-    var cardContainer = document.getElementById('cardContainer');
+    var cardContainer = document.getElementById('medicineList');
     medicines.forEach(function(medicine) {
       var cardHtml = createCard(medicine);
       cardContainer.innerHTML += cardHtml;
     });
+  }
+
+  // Function to format date to yyyy-mm-dd
+  function formatDate(dateString) {
+    var date = new Date(dateString);
+    var year = date.getFullYear();
+    var month = (date.getMonth() + 1).toString().padStart(2, '0');
+    var day = date.getDate().toString().padStart(2, '0');
+    return `${year}-${month}-${day}`;
   }
 </script>
 </body>

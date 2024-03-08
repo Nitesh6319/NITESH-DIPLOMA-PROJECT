@@ -15,12 +15,11 @@
         }
         .container {
             max-width: 800px;
-            margin: 0 auto;
+            margin: 20px auto; /* Center the container and add margin from all sides */
             background-color: #ffffff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             padding: 20px;
             border-radius: 10px;
-            margin-top: 20px;
         }
         .activity-card {
             margin-bottom: 15px;
@@ -33,9 +32,6 @@
         }
         .navbar {
             background-color: #e3f2fd;
-        }
-        #cardContainer {
-            margin-top: 20px; /* Adjust this value to set the desired space between cards */
         }
         .card {
             margin-bottom: 20px; /* Adjust this value to set the desired space between cards */
@@ -67,6 +63,10 @@
         </div>
     </div>
 
+    <!-- Note for reminders removal after 24 hours -->
+    <div class="alert alert-warning mt-4" role="alert">
+        <strong>Note:</strong> Reminders will be automatically cleared after 24 hours.
+    </div>
 </div>
 
 <!-- Bootstrap JS and Axios -->
@@ -82,7 +82,7 @@
             console.log(storedReminders);
             renderReminders(storedReminders);
 
-            // Automatically clear reminders after 10 seconds
+            // Automatically clear reminders after 24 hours
             setTimeout(() => {
                 var reminderCardsContainer = document.getElementById('cardContainer');
                 reminderCardsContainer.innerHTML = ''; // Clearing the HTML content
@@ -96,7 +96,7 @@
                             console.error('Error deleting reminder:', error);
                         });
                 });
-            }, 8640000);
+            }, 86400000); // 24 hours in milliseconds
         })
         .catch(error => {
             console.error('Error fetching reminders:', error);
