@@ -62,4 +62,10 @@ public class DietPlanService {
         log.info("Diet Plan Count: {}", plans.size());
         return plans;
     }
+
+    public void deleteByID(DietPlan dietPlan){
+
+        dietPlanRepository.deleteById(dietPlan.getId());
+        log.info("Deleted Medicine by id: {}",dietPlan.getId());
+    }
 }

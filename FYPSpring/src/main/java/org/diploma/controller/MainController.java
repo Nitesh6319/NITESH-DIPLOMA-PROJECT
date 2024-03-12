@@ -83,10 +83,12 @@ public class MainController {
 
     @GetMapping("/adddietplan")
     @ResponseStatus(HttpStatus.OK)
-    public List<DietPlan> getAllDietPlans()
-    {
-        return dietPlanService.getAllDietPlans();
-    }
+    public List<DietPlan> getAllDietPlans() {return dietPlanService.getAllDietPlans();}
+
+
+    @PostMapping("/deletedietplan")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteDietbyID(@RequestBody DietPlan dietPlan) {dietPlanService.deleteByID(dietPlan);}
 
 
     @PostMapping("/patientregister")
@@ -109,6 +111,15 @@ public class MainController {
         registrationService.createRegistration(registration);
     }
 
+    @GetMapping("/authenticate")
+    @ResponseStatus(HttpStatus.FOUND)
+    public String authenticationcheck(@RequestBody Registration registration)
+    {
+        if(registrationService.userAuthentication(registration))
+            return "Authorized";
+        else
+            return "Unauthorized";
+    }
 
     @GetMapping("/register")
     @ResponseStatus(HttpStatus.OK)
@@ -123,6 +134,10 @@ public class MainController {
         reminderService.createReminder(reminder);
     }
 
+    @PostMapping("/deletereminder")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteReminderbyID(@RequestBody Reminder reminder) {reminderService.deleteByID(reminder);}
+
 
     @GetMapping("/reminder")
     @ResponseStatus(HttpStatus.OK)
@@ -135,6 +150,13 @@ public class MainController {
     @ResponseStatus(HttpStatus.CREATED)
     public void createschedule(@RequestBody Schedule schedule) {
         scheduleService.createSchedule(schedule);
+    }
+
+
+    @PostMapping("/deleteschedule")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteSchedulebyID(@RequestBody Schedule schedule) {
+        scheduleService.deleteByID(schedule);
     }
 
 

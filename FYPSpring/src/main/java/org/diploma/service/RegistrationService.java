@@ -71,4 +71,16 @@ public class RegistrationService {
         log.info("Registration Count: {}", registrations.size());
         return registrations;
     }
+
+    public Boolean userAuthentication(Registration register){
+
+        Registration fromDB=registrationRepository.findbyCredentials(register.getPhone());
+        if(fromDB!=null)
+            if(fromDB.getPhone().equals(register.getPhone()) && fromDB.getPassword().equals(register.getPassword()))
+                return true;
+            else
+                return false;
+        else
+            return false;
+    }
 }

@@ -10,4 +10,6 @@ public interface DietPlanRepository extends JpaRepository<DietPlan,Integer> {
 
     @Query("SELECT MAX(m.id) FROM DietPlan m")
     Optional<Integer> findFirstByOrderByIdDesc();
+
+    void deleteById(int id);
 }

@@ -11,4 +11,7 @@ public interface ReminderRepository extends JpaRepository<Reminder,Integer> {
 
     @Query("SELECT MAX(m.id) FROM Reminder m")
     Optional<Integer> findFirstByOrderByIdDesc();
+
+    void deleteById(int id);
+
 }
