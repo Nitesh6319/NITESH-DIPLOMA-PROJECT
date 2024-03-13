@@ -1,0 +1,159 @@
+<!--login page-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase Authentication</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Add animation effects */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .animated {
+            animation-duration: 1s;
+            animation-fill-mode: both;
+        }
+
+        .fadeIn {
+            animation-name: fadeIn;
+        }
+
+        /* Style the header */
+        .header {
+            text-align: center;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .header img {
+            max-width: 200px; /* Adjust image width */
+            height: auto; /* Maintain aspect ratio */
+            border-radius: 8px; /* Add border radius */
+        }
+
+        /* Style the login box */
+        #login-box {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add shadow effect */
+        }
+
+        .left h1 {
+            margin-bottom: 20px;
+        }
+
+        .left input {
+            margin-bottom: 15px;
+            border-radius: 4px;
+            outline: none;
+        }
+
+        .right button {
+            margin-top: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .or {
+            text-align: center;
+            font-size: 18px;
+            margin: 20px 0;
+            color: #333;
+        }
+
+        .right a {
+            margin-top: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body style="background: linear-gradient(to right, #aee7f7, #3fd1fa)">
+<div class="header">
+    <img src="images/login.png" alt="Login Image" class="img-fluid">
+</div>
+<div id="login-box" class="animated fadeIn">
+    <div class="left">
+        <h1 id='status'><b>Credentials</b></h1>
+        <input type="text" id="email" name="email" placeholder="E-mail" class="form-control">
+        <input type="password" id="password" name="password" placeholder="Password" class="form-control">
+        <button onclick="signIn()" id="signIn" class="btn btn-success btn-block">Sign In</button>
+    </div>
+
+    <div class="right">
+        <a href="registration.html" class="btn btn-info btn-block">Register</a>
+    </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
+<script>
+    // Initialize Firebase
+    const firebaseConfig = {
+apiKey: "AIzaSyAC16447AbocUiH1ZEfkTjhNhO1vtbfgjk",
+authDomain: "abhay-28428.firebaseapp.com",
+databaseURL: "https://abhay-28428-default-rtdb.firebaseio.com",
+projectId: "abhay-28428",
+storageBucket: "abhay-28428.appspot.com",
+messagingSenderId: "850691641215",
+appId: "1:850691641215:web:46859f6df2bacdcbcf944a"
+};
+
+    firebase.initializeApp(firebaseConfig);
+
+    // Function to handle user sign-in
+    function signIn() {
+var email = document.getElementById("email").value;
+var password = document.getElementById("password").value;
+
+// Check if the email is registered in the database
+firebase.database().ref('users').orderByChild('email').equalTo(email).once('value', (snapshot) => {
+    if (snapshot.exists()) {
+        // Email exists in the database, proceed with sign-in
+        firebase.auth().signInWithEmailAndPassword(email, password)
+            .then((userCredential) => {
+                // Signed in
+                var user = userCredential.user;
+                // Retrieve user role from the database
+                firebase.database().ref('users/' + user.uid + '/role').once('value', (snapshot) => {
+                    var role = snapshot.val();
+                    console.log("Retrieved role:", role); // Debugging log
+                    if (role === 'caregiver') {
+                        window.location.href = "caregiver.html";
+                    } else if (role === 'patient') {
+                        window.location.href = "mainscreen.html";
+                    } else {
+                        // If role is not defined, handle it accordingly
+                        alert("User role not defined.");
+                    }
+                });
+            })
+            .catch((error) => {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                alert("Incorrect email or password.");
+            });
+    } else {
+        // Email does not exist in the database, prompt user to sign up first
+        alert("Email not registered. Please sign up first.");
+    }
+});
+}
+</script>
+</body>
+
+</html>
